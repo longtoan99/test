@@ -1,0 +1,17 @@
+#!/bin/sh /etc/rc.common
+
+START=10
+STOP=15
+ 
+start() {        
+        iptables -t mangle -I PREROUTING -i weth0 -j TTL --ttl-inc 2
+        iptables -t mangle -I POSTROUTING -o weth0 -j TTL --ttl-inc 2
+        ip6tables -t mangle -I PREROUTING ! -p icmpv6 -i weth0 -j HL --hl-inc 2
+        ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o weth0 -j HL --hl-inc 2
+
+}                 
+ 
+stop() {          
+        echo stop
+        # commands to kill application 
+}
