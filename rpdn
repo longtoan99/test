@@ -1,4 +1,16 @@
-iptables -t mangle -I PREROUTING -i usb0 -j TTL --ttl-inc 2
-iptables -t mangle -I POSTROUTING -o usb0 -j TTL --ttl-inc 2
-ip6tables -t mangle -I PREROUTING ! -p icmpv6 -i usb0 -j HL --hl-inc 2
-ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb0 -j HL --hl-inc 2
+#!/bin/sh /etc/rc.common
+
+START=10
+STOP=15
+ 
+start() {        
+        iptables -t mangle -I PREROUTING -i usb0 -j TTL --ttl-inc 2
+        iptables -t mangle -I POSTROUTING -o usb0 -j TTL --ttl-inc 2
+        ip6tables -t mangle -I PREROUTING ! -p icmpv6 -i usb0 -j HL --hl-inc 2
+        ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb0 -j HL --hl-inc 2
+}                 
+ 
+stop() {          
+        echo stop
+        # commands to kill application 
+}
