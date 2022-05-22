@@ -1,5 +1,0 @@
-modprobe xt_HL
-iptables -t mangle -I PREROUTING -i wwan0 -j TTL --ttl-inc 1
-iptables -t mangle -I POSTROUTING -o wwan0 -j TTL --ttl-inc 1
-ip6tables -t mangle -I PREROUTING ! -p icmpv6 -i wwan0 -j HL --hl-inc 1
-ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o wwan0 -j HL --hl-inc 1
